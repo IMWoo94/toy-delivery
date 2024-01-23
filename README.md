@@ -15,6 +15,7 @@
 - Java17
 - Gradle - Groovy 
 - JPA
+- Doker
 - MySQL 8.X
 ---
 
