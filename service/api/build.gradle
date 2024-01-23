@@ -10,6 +10,8 @@ repositories {
 }
 
 dependencies {
+    // 한 부모 아래에 있는 프로젝트 중에서 API 모듈이 DB 모듈을 가져다 쓸 것이다.
+    implementation project(":db")
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }

@@ -2,18 +2,10 @@ plugins {
     id 'java'
 }
 
-group = 'org.delivery'
-version = '1.0-SNAPSHOT'
-
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    testImplementation platform('org.junit:junit-bom:5.9.1')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
-}
-
-test {
-    useJUnitPlatform()
+// 하위 모든 프로젝트
+allprojects {
+    // 하위 모든 프로젝트는 repository 는 Maven 사용
+    repositories {
+        mavenCentral()
+    }
 }
