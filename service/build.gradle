@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'org.springframework.boot' version '3.2.2'
+    id 'io.spring.dependency-management' version '1.1.4'
 }
 
 // 하위 모든 프로젝트
@@ -8,4 +10,14 @@ allprojects {
     repositories {
         mavenCentral()
     }
+}
+
+// 패키징 하지 않는다.
+// root 프로젝트는 구현할 내용이 없기 때문
+bootJar{
+    enabled = false
+}
+
+jar{
+    enabled = false
 }
