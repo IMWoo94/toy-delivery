@@ -14,10 +14,10 @@ allprojects {
 
 // 패키징 하지 않는다.
 // root 프로젝트는 구현할 내용이 없기 때문
-bootJar{
+bootJar {
     enabled = false
 }
 
-jar{
+jar {
     enabled = false
 }

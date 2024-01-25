@@ -23,8 +23,7 @@ repositories {
 }
 
 dependencies {
-    // 한 부모 아래에 있는 프로젝트 중에서 API 모듈이 DB 모듈을 가져다 쓸 것이다.
-    implementation project(":db")
+
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
@@ -33,17 +32,18 @@ dependencies {
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-
+    // 한 부모 아래에 있는 프로젝트 중에서 API 모듈이 DB 모듈을 가져다 쓸 것이다.
+    implementation project(":db")
 }
 
 test {
     useJUnitPlatform()
 }
 
-bootJar{
+bootJar {
     enabled = true
 }
 
-jar{
+jar {
     enabled = false
 }
