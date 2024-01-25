@@ -1,6 +1,6 @@
 package org.delivery.api;
 
-import org.delivery.api.config.JpaConfig;
+import org.delivery.api.config.jpa.JpaConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
