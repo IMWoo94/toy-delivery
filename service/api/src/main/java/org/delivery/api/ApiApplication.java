@@ -1,11 +1,12 @@
 package org.delivery.api;
 
+import org.delivery.api.config.JpaConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.annotation.Import;
 
-@EntityScan("org.delivery.db")
-@SpringBootApplication(scanBasePackages = {"org.delivery"})
+@SpringBootApplication
+@Import(JpaConfig.class)
 public class ApiApplication {
 
 	public static void main(String[] args) {
