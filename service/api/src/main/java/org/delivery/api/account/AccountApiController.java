@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import org.delivery.api.account.model.AccountMeResponse;
 import org.delivery.api.common.api.Api;
 import org.delivery.api.common.error.ErrorCode;
+import org.delivery.api.common.exception.ApiException;
 import org.delivery.db.account.AccountRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,6 +40,12 @@ public class AccountApiController {
 
 	@GetMapping("/exception")
 	public void exception() throws Exception {
-		throw new Exception("예외가 발생");
+		try {
+			var str = "예외 처리";
+			Integer.parseInt(str);
+		} catch (Exception e) {
+			throw new ApiException(ErrorCode.SERVER_ERROR, e, "사용자 exception 메소드 호출 시 예외 발생");
+		}
+
 	}
 }
