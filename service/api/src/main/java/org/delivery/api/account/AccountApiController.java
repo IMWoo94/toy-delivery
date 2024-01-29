@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/api/account")
 @RequiredArgsConstructor
+@Slf4j
 public class AccountApiController {
 
 	private final AccountRepository accountRepository;
@@ -32,6 +34,11 @@ public class AccountApiController {
 
 	@GetMapping("/error")
 	public Api<Object> error() {
-		return Api.ERROR(ErrorCode.SERVER_ERROR, "일부러 에러 발생 시키기");
+		return Api.ERROR(ErrorCode.SERVER_ERROR, "에러 응답 정보 보내기");
+	}
+
+	@GetMapping("/exception")
+	public void exception() throws Exception {
+		throw new Exception("예외가 발생");
 	}
 }
