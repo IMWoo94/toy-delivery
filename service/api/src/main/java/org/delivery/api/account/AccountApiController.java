@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import org.delivery.api.account.model.AccountMeResponse;
 import org.delivery.api.common.api.Api;
+import org.delivery.api.common.error.ErrorCode;
 import org.delivery.db.account.AccountRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,12 @@ public class AccountApiController {
 			.email("A@gmail.com")
 			.registeredAt(LocalDateTime.now())
 			.build();
-		return Api.ok(response);
+
+		return Api.OK(response);
+	}
+
+	@GetMapping("/error")
+	public Api<Object> error() {
+		return Api.ERROR(ErrorCode.SERVER_ERROR, "일부러 에러 발생 시키기");
 	}
 }
