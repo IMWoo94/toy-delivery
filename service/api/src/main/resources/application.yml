@@ -3,4 +3,4 @@ spring:
     include:
       - db
       - api
-debug: true
+debug: false
