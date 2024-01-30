@@ -19,9 +19,11 @@ import lombok.experimental.SuperBuilder;
 @Entity
 @Table(name = "user")
 @Data
+// Equals 와 HashCode 를 사용할 때 부모에 있는 값 까지 포함 한다고 선언
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
+// 부모가 가지고 있는 변수도 지정이 가능
 @SuperBuilder
 public class UserEntity extends BaseEntity {
 
