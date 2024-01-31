@@ -36,9 +36,7 @@ public class UserService {
 	}
 
 	private void duplicationJoin(String email) {
-		var duplication = Optional.ofNullable(email)
-			.map(it -> userRepository.findFirstByEmailAndStatus(email, UserStatus.REGISTERED))
-			.isPresent();
+		var duplication = userRepository.findFirstByEmailAndStatus(email, UserStatus.REGISTERED).isPresent();
 
 		if (duplication)
 			throw new ApiException(UserErrorCode.USER_DUPLICATION, "UserService.duplicationJoin : User Duplication");
@@ -56,9 +54,11 @@ public class UserService {
 		String password
 	) {
 		return userRepository.findFirstByEmailAndPasswordAndStatusOrderByIdDesc(
-			email,
-			password,
-			UserStatus.REGISTERED
-		).orElseThrow(() -> new ApiException(UserErrorCode.USER_NOT_FOUND, "UserService.getUser : User Not Found"));
+				email,
+				password,
+				UserStatus.REGISTERED
+			)
+			.orElseThrow(
+				() -> new ApiException(UserErrorCode.USER_NOT_FOUND, "UserService.getUserWithThrow : User Not Found"));
 	}
 }
