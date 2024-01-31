@@ -6,7 +6,9 @@ import org.delivery.api.common.annotation.Business;
 import org.delivery.api.common.error.ErrorCode;
 import org.delivery.api.common.exception.ApiException;
 import org.delivery.api.domain.user.controller.model.UserFindEmailRequest;
+import org.delivery.api.domain.user.controller.model.UserFindPasswordRequest;
 import org.delivery.api.domain.user.controller.model.UserLoginRequest;
+import org.delivery.api.domain.user.controller.model.UserPasswordResponse;
 import org.delivery.api.domain.user.controller.model.UserRegisterRequest;
 import org.delivery.api.domain.user.controller.model.UserResponse;
 import org.delivery.api.domain.user.converter.UserConverter;
@@ -54,5 +56,18 @@ public class UserBusiness {
 			.map(userConverter::toResponse)
 			.orElseThrow(
 				() -> new ApiException(ErrorCode.NULL_POINT, "UserBusiness.findEmail : UserFindEmailRequest Null"));
+	}
+
+	public UserPasswordResponse findPassword(UserFindPasswordRequest request) {
+		return Optional.ofNullable(request)
+			.map(
+				it -> userService.getUserPasswordWithThrow(request.getEmail(),
+					request.getName(),
+					request.getAddress())
+			)
+			.map(userConverter::toPasswordResponse)
+			.orElseThrow(
+				() -> new ApiException(ErrorCode.NULL_POINT,
+					"UserBusiness.findPassword : UserFindPasswordRequest Null"));
 	}
 }

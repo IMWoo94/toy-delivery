@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.delivery.api.common.annotation.Converter;
 import org.delivery.api.common.error.ErrorCode;
 import org.delivery.api.common.exception.ApiException;
+import org.delivery.api.domain.user.controller.model.UserPasswordResponse;
 import org.delivery.api.domain.user.controller.model.UserRegisterRequest;
 import org.delivery.api.domain.user.controller.model.UserResponse;
 import org.delivery.db.user.UserEntity;
@@ -50,5 +51,19 @@ public class UserConverter {
 
 			})
 			.orElseThrow(() -> new ApiException(ErrorCode.NULL_POINT, "UserConverter.toResponse : UserEntity Null"));
+	}
+
+	public UserPasswordResponse toPasswordResponse(UserEntity userEntity) {
+		return Optional.ofNullable(userEntity)
+			.map(it -> {
+				// to UserResponse
+
+				return UserPasswordResponse.builder()
+					.password(userEntity.getPassword())
+					.build();
+
+			})
+			.orElseThrow(
+				() -> new ApiException(ErrorCode.NULL_POINT, "UserConverter.toPasswordResponse : UserEntity Null"));
 	}
 }

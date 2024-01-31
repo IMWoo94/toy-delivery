@@ -22,6 +22,11 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 	Optional<UserEntity> findFirstByNameAndAddressAndStatusOrderByIdDesc(String name, String address,
 		UserStatus status);
 
+	// select * from user where email = ? and name = ? and address = ? and status = ? order by id desc limit 1;
+	Optional<UserEntity> findFirstByEmailAndNameAndAddressAndStatusOrderByIdDesc(String email, String name,
+		String address,
+		UserStatus status);
+
 	@Query("select u from UserEntity u where (u.email = :email or ( u.name = :name and u.address = :address)) and u.status = :status order by u.id limit 1")
 	Optional<UserEntity> duplicationJoin(
 		@Param("email") String email,

@@ -3,7 +3,9 @@ package org.delivery.api.domain.user.controller;
 import org.delivery.api.common.api.Api;
 import org.delivery.api.domain.user.business.UserBusiness;
 import org.delivery.api.domain.user.controller.model.UserFindEmailRequest;
+import org.delivery.api.domain.user.controller.model.UserFindPasswordRequest;
 import org.delivery.api.domain.user.controller.model.UserLoginRequest;
+import org.delivery.api.domain.user.controller.model.UserPasswordResponse;
 import org.delivery.api.domain.user.controller.model.UserRegisterRequest;
 import org.delivery.api.domain.user.controller.model.UserResponse;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,6 +50,16 @@ public class UserOpenApiController {
 		@RequestBody Api<UserFindEmailRequest> request
 	) {
 		var response = userBusiness.findEmail(request.getBody());
+		return Api.OK(response);
+	}
+
+	// Password 찾기
+	@PostMapping("/findPassword")
+	public Api<UserPasswordResponse> findPassword(
+		@Valid
+		@RequestBody Api<UserFindPasswordRequest> request
+	) {
+		var response = userBusiness.findPassword(request.getBody());
 		return Api.OK(response);
 	}
 }
