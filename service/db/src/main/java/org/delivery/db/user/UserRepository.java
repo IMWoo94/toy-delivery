@@ -15,4 +15,8 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
 	// select * from user where email = ? and status = ? limit 1;
 	Optional<UserEntity> findFirstByEmailAndStatus(String email, UserStatus status);
+
+	// select * from user where name = ? and address = ? and status = ? order by id desc limit 1;
+	Optional<UserEntity> findFirstByNameAndAddressAndStatusOrderByIdDesc(String name, String address,
+		UserStatus status);
 }

@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.delivery.api.common.annotation.Business;
 import org.delivery.api.common.error.ErrorCode;
 import org.delivery.api.common.exception.ApiException;
+import org.delivery.api.domain.user.controller.model.UserFindEmailRequest;
 import org.delivery.api.domain.user.controller.model.UserLoginRequest;
 import org.delivery.api.domain.user.controller.model.UserRegisterRequest;
 import org.delivery.api.domain.user.controller.model.UserResponse;
@@ -45,5 +46,13 @@ public class UserBusiness {
 
 		// TODO 토큰 생성 로직 추후 변경
 		return userConverter.toResponse(userEntity);
+	}
+
+	public UserResponse findEmail(UserFindEmailRequest request) {
+		return Optional.ofNullable(request)
+			.map(it -> userService.getUserEmailWithThrow(request.getName(), request.getAddress()))
+			.map(userConverter::toResponse)
+			.orElseThrow(
+				() -> new ApiException(ErrorCode.NULL_POINT, "UserBusiness.findEmail : UserFindEmailRequest Null"));
 	}
 }

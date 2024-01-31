@@ -2,6 +2,7 @@ package org.delivery.api.domain.user.controller;
 
 import org.delivery.api.common.api.Api;
 import org.delivery.api.domain.user.business.UserBusiness;
+import org.delivery.api.domain.user.controller.model.UserFindEmailRequest;
 import org.delivery.api.domain.user.controller.model.UserLoginRequest;
 import org.delivery.api.domain.user.controller.model.UserRegisterRequest;
 import org.delivery.api.domain.user.controller.model.UserResponse;
@@ -37,6 +38,16 @@ public class UserOpenApiController {
 		@RequestBody Api<UserLoginRequest> request
 	) {
 		var response = userBusiness.login(request.getBody());
+		return Api.OK(response);
+	}
+
+	// Email 찾기
+	@PostMapping("/findEmail")
+	public Api<UserResponse> findEmail(
+		@Valid
+		@RequestBody Api<UserFindEmailRequest> request
+	) {
+		var response = userBusiness.findEmail(request.getBody());
 		return Api.OK(response);
 	}
 }
