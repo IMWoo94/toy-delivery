@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.delivery.api.common.error.ErrorCode;
+import org.delivery.api.common.error.UserErrorCode;
 import org.delivery.api.common.exception.ApiException;
 import org.delivery.db.user.UserEntity;
 import org.delivery.db.user.UserRepository;
@@ -31,5 +32,23 @@ public class UserService {
 				return userRepository.save(userEntity);
 			})
 			.orElseThrow(() -> new ApiException(ErrorCode.NULL_POINT, "UserService.register : UserEntity Null"));
+	}
+
+	public UserEntity login(
+		String email,
+		String password
+	) {
+		return getUserWithThrow(email, password);
+	}
+
+	public UserEntity getUserWithThrow(
+		String email,
+		String password
+	) {
+		return userRepository.findFirstByEmailAndPasswordAndStatusOrderByIdDesc(
+			email,
+			password,
+			UserStatus.REGISTERED
+		).orElseThrow(() -> new ApiException(UserErrorCode.USER_NOT_FOUND, "UserService.getUser : User Not Found"));
 	}
 }

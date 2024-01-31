@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.delivery.api.common.annotation.Business;
 import org.delivery.api.common.error.ErrorCode;
 import org.delivery.api.common.exception.ApiException;
+import org.delivery.api.domain.user.controller.model.UserLoginRequest;
 import org.delivery.api.domain.user.controller.model.UserRegisterRequest;
 import org.delivery.api.domain.user.controller.model.UserResponse;
 import org.delivery.api.domain.user.converter.UserConverter;
@@ -30,5 +31,19 @@ public class UserBusiness {
 			.map(userConverter::toResponse)
 			.orElseThrow(
 				() -> new ApiException(ErrorCode.NULL_POINT, "UserBusiness.register : UserRegisterRequest Null"));
+	}
+
+	/**
+	 * 1. email, password 를 가지고 사용자 확인
+	 * 2. user entity 로그인 확인
+	 * 3. token 생성
+	 * 4. token response
+	 * @param request
+	 */
+	public UserResponse login(UserLoginRequest request) {
+		var userEntity = userService.getUserWithThrow(request.getEmail(), request.getPassword());
+
+		// TODO 토큰 생성 로직 추후 변경
+		return userConverter.toResponse(userEntity);
 	}
 }
