@@ -27,7 +27,7 @@ public class UserService {
 	public UserEntity register(UserEntity userEntity) {
 		return Optional.ofNullable(userEntity)
 			.map(it -> {
-				duplicationJoin(userEntity.getEmail());
+				duplicationJoin(userEntity);
 				userEntity.setStatus(UserStatus.REGISTERED);
 				userEntity.setRegisteredAt(LocalDateTime.now());
 				return userRepository.save(userEntity);
@@ -35,8 +35,12 @@ public class UserService {
 			.orElseThrow(() -> new ApiException(ErrorCode.NULL_POINT, "UserService.register : UserEntity Null"));
 	}
 
-	private void duplicationJoin(String email) {
-		var duplication = userRepository.findFirstByEmailAndStatus(email, UserStatus.REGISTERED).isPresent();
+	private void duplicationJoin(UserEntity userEntity) {
+		var duplication = userRepository.duplicationJoin(userEntity.getEmail(),
+			userEntity.getName(),
+			userEntity.getAddress(),
+			UserStatus.REGISTERED
+		).isPresent();
 
 		if (duplication)
 			throw new ApiException(UserErrorCode.USER_DUPLICATION, "UserService.duplicationJoin : User Duplication");
