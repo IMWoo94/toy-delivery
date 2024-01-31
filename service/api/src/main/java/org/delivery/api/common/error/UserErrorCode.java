@@ -10,7 +10,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public enum UserErrorCode implements ErrorCodeIfs {
 
-	USER_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), 1404, "사용자를 찾을 수 없음.");
+	USER_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), 1404, "사용자를 찾을 수 없음."),
+	USER_DUPLICATION(HttpStatus.BAD_REQUEST.value(), 1405, "중복된 사용자 입니다.");
 
 	// Internal Http 통신의 Status 코드
 	private final Integer httpStatusCode;
