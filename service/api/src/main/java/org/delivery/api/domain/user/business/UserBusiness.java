@@ -5,6 +5,8 @@ import java.util.Optional;
 import org.delivery.api.common.annotation.Business;
 import org.delivery.api.common.error.ErrorCode;
 import org.delivery.api.common.exception.ApiException;
+import org.delivery.api.domain.token.business.TokenBusiness;
+import org.delivery.api.domain.token.controller.model.TokenResponse;
 import org.delivery.api.domain.user.controller.model.UserFindEmailRequest;
 import org.delivery.api.domain.user.controller.model.UserFindPasswordRequest;
 import org.delivery.api.domain.user.controller.model.UserLoginRequest;
@@ -22,6 +24,7 @@ public class UserBusiness {
 
 	private final UserService userService;
 	private final UserConverter userConverter;
+	private final TokenBusiness tokenBusiness;
 
 	public UserResponse register(UserRegisterRequest request) {
 		// var entity = userConverter.toEntity(request);
@@ -43,11 +46,10 @@ public class UserBusiness {
 	 * 4. token response
 	 * @param request
 	 */
-	public UserResponse login(UserLoginRequest request) {
+	public TokenResponse login(UserLoginRequest request) {
 		var userEntity = userService.getUserWithThrow(request.getEmail(), request.getPassword());
-
-		// TODO 토큰 생성 로직 추후 변경
-		return userConverter.toResponse(userEntity);
+		// token 발행
+		return tokenBusiness.issueToken(userEntity);
 	}
 
 	public UserResponse findEmail(UserFindEmailRequest request) {

@@ -1,6 +1,7 @@
 package org.delivery.api.domain.user.controller;
 
 import org.delivery.api.common.api.Api;
+import org.delivery.api.domain.token.controller.model.TokenResponse;
 import org.delivery.api.domain.user.business.UserBusiness;
 import org.delivery.api.domain.user.controller.model.UserFindEmailRequest;
 import org.delivery.api.domain.user.controller.model.UserFindPasswordRequest;
@@ -35,7 +36,7 @@ public class UserOpenApiController {
 
 	// 로그인
 	@PostMapping("/login")
-	public Api<UserResponse> login(
+	public Api<TokenResponse> login(
 		@Valid
 		@RequestBody Api<UserLoginRequest> request
 	) {
