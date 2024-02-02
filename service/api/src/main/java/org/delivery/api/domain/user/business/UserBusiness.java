@@ -14,6 +14,7 @@ import org.delivery.api.domain.user.controller.model.UserPasswordResponse;
 import org.delivery.api.domain.user.controller.model.UserRegisterRequest;
 import org.delivery.api.domain.user.controller.model.UserResponse;
 import org.delivery.api.domain.user.converter.UserConverter;
+import org.delivery.api.domain.user.model.User;
 import org.delivery.api.domain.user.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -44,6 +45,7 @@ public class UserBusiness {
 	 * 2. user entity 로그인 확인
 	 * 3. token 생성
 	 * 4. token response
+	 *
 	 * @param request
 	 */
 	public TokenResponse login(UserLoginRequest request) {
@@ -73,8 +75,8 @@ public class UserBusiness {
 					"UserBusiness.findPassword : UserFindPasswordRequest Null"));
 	}
 
-	public UserResponse me(Long userId) {
-		var userEntity = userService.getUserWithThrow(userId);
+	public UserResponse me(User user) {
+		var userEntity = userService.getUserWithThrow(user.getId());
 		return userConverter.toResponse(userEntity);
 	}
 }
