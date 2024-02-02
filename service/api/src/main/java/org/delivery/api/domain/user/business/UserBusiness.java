@@ -72,4 +72,9 @@ public class UserBusiness {
 				() -> new ApiException(ErrorCode.NULL_POINT,
 					"UserBusiness.findPassword : UserFindPasswordRequest Null"));
 	}
+
+	public UserResponse me(Long userId) {
+		var userEntity = userService.getUserWithThrow(userId);
+		return userConverter.toResponse(userEntity);
+	}
 }
