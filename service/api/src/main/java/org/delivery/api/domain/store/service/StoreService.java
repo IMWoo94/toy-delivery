@@ -9,6 +9,7 @@ import org.delivery.db.store.StoreEntity;
 import org.delivery.db.store.StoreRepository;
 import org.delivery.db.store.enums.StoreCategory;
 import org.delivery.db.store.enums.StoreStatus;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,10 +40,11 @@ public class StoreService {
 	}
 
 	// 카테고리로 스토어 검색
-	public List<StoreEntity> searchByCategory(StoreCategory storeCategory) {
+	public List<StoreEntity> searchByCategory(StoreCategory storeCategory, Pageable pageable) {
 		var list = storeRepository.findAllByStatusAndCategoryOrderByStarDesc(
 			StoreStatus.REGISTERED,
-			storeCategory
+			storeCategory,
+			pageable
 		);
 
 		return list;

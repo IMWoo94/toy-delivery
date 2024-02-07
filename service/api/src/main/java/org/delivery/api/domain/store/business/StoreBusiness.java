@@ -9,6 +9,7 @@ import org.delivery.api.domain.store.controller.model.StoreResponse;
 import org.delivery.api.domain.store.converter.StoreConverter;
 import org.delivery.api.domain.store.service.StoreService;
 import org.delivery.db.store.enums.StoreCategory;
+import org.springframework.data.domain.Pageable;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,9 +27,9 @@ public class StoreBusiness {
 		return response;
 	}
 
-	public List<StoreResponse> searchCategory(StoreCategory storeCategory) {
+	public List<StoreResponse> searchCategory(StoreCategory storeCategory, Pageable pageable) {
 
-		var storeList = storeService.searchByCategory(storeCategory);
+		var storeList = storeService.searchByCategory(storeCategory, pageable);
 		return storeList.stream()
 			.map(storeConverter::toResponse)
 			.collect(Collectors.toList());

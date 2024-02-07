@@ -6,6 +6,9 @@ import org.delivery.api.common.api.Api;
 import org.delivery.api.domain.store.business.StoreBusiness;
 import org.delivery.api.domain.store.controller.model.StoreResponse;
 import org.delivery.db.store.enums.StoreCategory;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,9 +26,11 @@ public class StoreApiController {
 	@GetMapping("/search")
 	public Api<List<StoreResponse>> search(
 		@RequestParam(required = false)
-		StoreCategory storeCategory
+		StoreCategory storeCategory,
+		@PageableDefault(sort = "id", direction = Sort.Direction.DESC)
+		Pageable pageable
 	) {
-		var response = storeBusiness.searchCategory(storeCategory);
+		var response = storeBusiness.searchCategory(storeCategory, pageable);
 		return Api.OK(response);
 	}
 }
