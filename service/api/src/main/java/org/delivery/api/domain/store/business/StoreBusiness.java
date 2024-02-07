@@ -35,7 +35,7 @@ public class StoreBusiness {
 			.collect(Collectors.toList());
 	}
 
-	public StoreResponse search(Long storeId) {
+	public StoreResponse searchWithThrow(Long storeId) {
 		var entity = storeService.getStoreWithThrow(storeId);
 		var response = storeConverter.toResponse(entity);
 		return response;

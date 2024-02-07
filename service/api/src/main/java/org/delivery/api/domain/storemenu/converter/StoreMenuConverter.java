@@ -16,7 +16,6 @@ public class StoreMenuConverter {
 		return Optional.ofNullable(request)
 			.map(it -> {
 				return StoreMenuEntity.builder()
-					.storeId(request.getStoreId())
 					.name(request.getName())
 					.amount(request.getAmount())
 					.thumbnailUrl(request.getThumbnailUrl())
@@ -29,7 +28,7 @@ public class StoreMenuConverter {
 			.map(it -> {
 				return StoreMenuResponse.builder()
 					.id(entity.getId())
-					.storeId(entity.getStoreId())
+					.storeId(entity.getStore().getId())
 					.name(entity.getName())
 					.status(entity.getStatus())
 					.amount(entity.getAmount())
