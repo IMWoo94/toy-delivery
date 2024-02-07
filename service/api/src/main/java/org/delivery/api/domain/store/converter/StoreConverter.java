@@ -32,6 +32,25 @@ public class StoreConverter {
 			.orElseThrow(() -> new ApiException(ErrorCode.NULL_POINT));
 	}
 
+	public StoreEntity toEntity(StoreResponse response) {
+		return Optional.ofNullable(response)
+			.map(it -> {
+				return StoreEntity.builder()
+					.id(it.getId())
+					.name(it.getName())
+					.address(it.getAddress())
+					.category(it.getCategory())
+					.minimumAmount(it.getMinimumAmount())
+					.minimumDeliveryAmount(it.getMinimumDeliveryAmount())
+					.thumbnailUrl(it.getThumbnailUrl())
+					.phoneNumber(it.getPhoneNumber())
+					.star(it.getStar())
+					.status(it.getStatus())
+					.build();
+			})
+			.orElseThrow(() -> new ApiException(ErrorCode.NULL_POINT));
+	}
+
 	public StoreResponse toResponse(StoreEntity entity) {
 		return Optional.ofNullable(entity)
 			.map(it -> {

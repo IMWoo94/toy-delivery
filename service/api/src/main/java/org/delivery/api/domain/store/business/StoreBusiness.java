@@ -34,4 +34,10 @@ public class StoreBusiness {
 			.map(storeConverter::toResponse)
 			.collect(Collectors.toList());
 	}
+
+	public StoreResponse search(Long storeId) {
+		var entity = storeService.getStoreWithThrow(storeId);
+		var response = storeConverter.toResponse(entity);
+		return response;
+	}
 }
