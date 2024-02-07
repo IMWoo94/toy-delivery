@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.delivery.api.common.error.ErrorCode;
+import org.delivery.api.common.error.StoreErrorCode;
 import org.delivery.api.common.exception.ApiException;
 import org.delivery.db.store.StoreEntity;
 import org.delivery.db.store.StoreRepository;
@@ -24,7 +25,7 @@ public class StoreService {
 	// 유효한 스토어 가져오기
 	public StoreEntity getStoreWithThrow(Long id) {
 		var entity = storeRepository.findFirstByIdAndStatusOrderByIdDesc(id, StoreStatus.REGISTERED);
-		return entity.orElseThrow(() -> new ApiException(ErrorCode.NULL_POINT));
+		return entity.orElseThrow(() -> new ApiException(StoreErrorCode.STORE_NOT_FOUND, "Store 정보가 없습니다."));
 	}
 
 	@Transactional
