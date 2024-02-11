@@ -18,5 +18,5 @@ public class UserOrderRequest {
 	// 특정 메뉴 ID 만 전달
 
 	@NotNull
-	private List<Long> storeMenuIdList;
+	private List<OrderMenu> storeMenuIdList;
 }
