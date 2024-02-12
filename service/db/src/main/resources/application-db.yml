@@ -5,6 +5,7 @@ spring:
       hibernate:
         dialect: MySQL
         hbm2ddl:
+          #          auto: create
           auto: validate
   datasource:
     url: jdbc:mysql://localhost:3306/Delivery?useSSL=false&useUnicode=true&allowPublicKeyRetrieval=true
