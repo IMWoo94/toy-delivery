@@ -9,6 +9,8 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -45,5 +47,12 @@ public class SecurityConfig {
 			.formLogin(Customizer.withDefaults());
 
 		return httpSecurity.build();
+	}
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		// hash 방식 암호화, salt 를 추가 해싱
+		// 디코딩 불가능하며, 인코딩만 가능하다
+		return new BCryptPasswordEncoder();
 	}
 }
