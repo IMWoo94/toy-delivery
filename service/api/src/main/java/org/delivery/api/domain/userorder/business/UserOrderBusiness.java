@@ -15,6 +15,7 @@ import org.delivery.api.domain.userorder.controller.model.UserOrderDetailRespons
 import org.delivery.api.domain.userorder.controller.model.UserOrderRequest;
 import org.delivery.api.domain.userorder.controller.model.UserOrderResponse;
 import org.delivery.api.domain.userorder.converter.UserOrderConverter;
+import org.delivery.api.domain.userorder.producer.UserOrderProducer;
 import org.delivery.api.domain.userorder.service.UserOrderService;
 import org.delivery.api.domain.userordermenu.converter.UserOrderMenuConverter;
 import org.delivery.api.domain.userordermenu.service.UserOrderMenuService;
@@ -34,6 +35,7 @@ public class UserOrderBusiness {
 	private final UserOrderMenuService userOrderMenuService;
 	private final StoreService storeService;
 	private final StoreConverter storeConverter;
+	private final UserOrderProducer userOrderProducer;
 
 	/**
 	 * 1. 사용자, 메뉴 ID
@@ -75,6 +77,9 @@ public class UserOrderBusiness {
 
 		// 맵핑 등록
 		userOrderMenuEntityList.forEach(userOrderMenuService::order);
+
+		// 비동기로 가맹점에 주문 알리기
+		userOrderProducer.sendOrder(newUserOrderEntity);
 
 		// 응답 결과 반환
 		return userOrderConverter.toResponse(newUserOrderEntity);

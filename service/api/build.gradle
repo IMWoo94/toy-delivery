@@ -37,6 +37,7 @@ dependencies {
 
     // 한 부모 아래에 있는 프로젝트 중에서 API 모듈이 DB 모듈을 가져다 쓸 것이다.
     implementation project(":db")
+    implementation project(":common")
 
     // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
