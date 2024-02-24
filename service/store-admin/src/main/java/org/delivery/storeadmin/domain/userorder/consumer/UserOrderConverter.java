@@ -1,4 +1,4 @@
-package org.delivery.storeadmin.domain.userorder;
+package org.delivery.storeadmin.domain.userorder.consumer;
 
 import org.delivery.common.message.model.UserOrderMessage;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
