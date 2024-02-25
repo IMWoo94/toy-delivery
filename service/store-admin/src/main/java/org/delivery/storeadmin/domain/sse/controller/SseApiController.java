@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 public class SseApiController {
 
 	private final SseConnectionPool sseConnectionPool;
+	private final ObjectMapper objectMapper;
 
 	@GetMapping(path = "/connect", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
 	public ResponseBodyEmitter connect(
@@ -33,12 +36,13 @@ public class SseApiController {
 
 		var userSseConnection = UserSseConnection.connect(
 			userSession.getUserId().toString(),
-			sseConnectionPool
+			sseConnectionPool,
+			objectMapper
 		);
 
 		// connection pool add
 		sseConnectionPool.addSession(userSession.getUserId().toString(), userSseConnection);
-		
+
 		return userSseConnection.getSseEmitter();
 	}
 
