@@ -1,0 +1,20 @@
+package org.delivery.storeadmin.domain.storemenu.service;
+
+import org.delivery.db.storemenu.StoreMenuEntity;
+import org.delivery.db.storemenu.StoreMenuRepository;
+import org.delivery.db.storemenu.enums.StoreMenuStatus;
+import org.springframework.stereotype.Service;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class StoreMenuService {
+
+	private final StoreMenuRepository storeMenuRepository;
+
+	public StoreMenuEntity getStoreMenuWithThrow(Long id) {
+		return storeMenuRepository.findFirstByIdAndStatusOrderByIdDesc(id, StoreMenuStatus.REGISTERED)
+			.orElseThrow(() -> new RuntimeException("Store menu not found"));
+	}
+}
