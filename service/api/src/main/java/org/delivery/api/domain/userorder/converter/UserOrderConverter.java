@@ -17,6 +17,7 @@ public class UserOrderConverter {
 
 	public UserOrderEntity toEntity(
 		User user,
+		Long storeId,
 		List<StoreMenuEntity> storeMenuEntityList,
 		List<OrderMenu> orderMenus
 	) {
@@ -35,6 +36,7 @@ public class UserOrderConverter {
 		return UserOrderEntity.builder()
 			.userId(user.getId())
 			.amount(totalAmount)
+			.storeId(storeId)
 			.build();
 	}
 

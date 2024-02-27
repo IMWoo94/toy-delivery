@@ -51,7 +51,12 @@ public class UserOrderBusiness {
 			})
 			.toList();
 		// Order Entity 생성
-		var userOrderEntity = userOrderConverter.toEntity(user, storeMenuEntityList, request.getStoreMenuIdList());
+		var userOrderEntity = userOrderConverter.toEntity(
+			user,
+			request.getStoreId(),
+			storeMenuEntityList,
+			request.getStoreMenuIdList()
+		);
 
 		// Order Entity 등록
 		var newUserOrderEntity = userOrderService.order(userOrderEntity);
