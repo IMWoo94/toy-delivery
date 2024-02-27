@@ -16,7 +16,7 @@ public class UserOrderProducer {
 	private static final String ROUTE_KEY = "delivery.key";
 
 	public void sendOrder(UserOrderEntity userOrderEntity) {
-		sendOrder(userOrderEntity.getUserId());
+		sendOrder(userOrderEntity.getId());
 	}
 
 	public void sendOrder(Long userOrderId) {
