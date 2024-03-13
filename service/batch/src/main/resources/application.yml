@@ -1,0 +1,6 @@
+spring:
+  profiles:
+    include:
+      - db
+      - batch
+debug: false
