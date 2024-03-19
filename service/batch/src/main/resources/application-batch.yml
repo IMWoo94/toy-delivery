@@ -4,3 +4,4 @@ spring:
       initialize-schema: always # schema 항상 초기화
     job:
       name: settleDaysJob
+      enabled: false
