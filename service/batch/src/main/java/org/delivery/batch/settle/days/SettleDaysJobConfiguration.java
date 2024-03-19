@@ -9,10 +9,13 @@ import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
+import org.springframework.batch.item.database.JpaItemWriter;
+import org.springframework.batch.item.database.builder.JpaItemWriterBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import jakarta.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -39,15 +42,23 @@ public class SettleDaysJobConfiguration {
 	@Bean
 	public Step settleDaysStep(
 		UserOrderEntityJpaPagingItemReader userOrderEntityJpaPagingItemReader,
-		SettleDaysItemProcessor settleDaysItemProcessor
+		SettleDaysItemProcessor settleDaysItemProcessor,
+		JpaItemWriter<SettleDaysEntity> jpaItemWriter
 	) {
 		return new StepBuilder("settleDaysStep", jobRepository)
 			.<UserOrderEntity, SettleDaysEntity>chunk(1000, platformTransactionManager)
 			.reader(userOrderEntityJpaPagingItemReader)
 			.processor(settleDaysItemProcessor)
-			.writer(it -> {
-				log.info(it.toString());
-			})
+			.writer(jpaItemWriter)
+			.build();
+	}
+
+	@Bean
+	public JpaItemWriter<SettleDaysEntity> jpaItemWriter(
+		EntityManagerFactory entityManagerFactory
+	) {
+		return new JpaItemWriterBuilder<SettleDaysEntity>()
+			.entityManagerFactory(entityManagerFactory)
 			.build();
 	}
 }
