@@ -29,6 +29,9 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
+    // quartz
+    implementation 'org.springframework.boot:spring-boot-starter-quartz'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     // 한 부모 아래에 있는 프로젝트 중에서 API 모듈이 DB 모듈을 가져다 쓸 것이다.
