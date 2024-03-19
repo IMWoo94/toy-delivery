@@ -1,5 +1,7 @@
 package org.delivery.batch.settle.days;
 
+import org.delivery.db.settle.SettleDaysEntity;
+import org.delivery.db.userorder.UserOrderEntity;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.DefaultJobParametersValidator;
@@ -36,12 +38,13 @@ public class SettleDaysJobConfiguration {
 
 	@Bean
 	public Step settleDaysStep(
-		UserOrderEntityJpaPagingItemReader userOrderEntityJpaPagingItemReader
+		UserOrderEntityJpaPagingItemReader userOrderEntityJpaPagingItemReader,
+		SettleDaysItemProcessor settleDaysItemProcessor
 	) {
 		return new StepBuilder("settleDaysStep", jobRepository)
-			.chunk(1000, platformTransactionManager)
+			.<UserOrderEntity, SettleDaysEntity>chunk(1000, platformTransactionManager)
 			.reader(userOrderEntityJpaPagingItemReader)
-			// .processor()
+			.processor(settleDaysItemProcessor)
 			.writer(it -> {
 				log.info(it.toString());
 			})
