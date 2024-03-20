@@ -5,8 +5,6 @@ import org.delivery.db.userordermenu.enums.UserOrderMenuStatus;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,6 +26,6 @@ public class UserOrderMenuEntity extends BaseEntity {
 	@Column(nullable = false)
 	private Long storeMenuId; // 1 : n
 	@Column(length = 50, nullable = false)
-	@Enumerated(EnumType.STRING)
+	// @Enumerated(EnumType.STRING)
 	private UserOrderMenuStatus status;
 }

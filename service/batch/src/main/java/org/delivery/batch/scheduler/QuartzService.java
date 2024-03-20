@@ -30,7 +30,7 @@ public class QuartzService {
 
 		Trigger trigger = TriggerBuilder
 			.newTrigger()
-			.withSchedule(CronScheduleBuilder.cronSchedule("30 5 24 * * ?"))
+			.withSchedule(CronScheduleBuilder.cronSchedule("30 5 23 * * ?"))
 			.build();
 
 		try {

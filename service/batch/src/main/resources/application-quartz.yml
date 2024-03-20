@@ -1,0 +1,31 @@
+spring:
+  quartz:
+    job-store-type: jdbc
+    scheduler-name: SettleQuartzScheduler
+    jdbc:
+      initialize-schema: always
+    overwrite-existing-jobs: true
+    properties:
+      org:
+        quartz:
+          scheduler:
+            instanceName: SettleInstance
+            instanceId: AUTO
+          threadPool:
+            class: org.quartz.simpl.SimpleThreadPool
+            threadCount: 3
+          jobStore:
+            class: org.quartz.impl.jdbcjobstore.JobStoreTX
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+            dataSource: settleDS
+            tablePrefix: QRTZ_
+            isClustered: true
+            clusterCheckinInterval: 20000
+          dataSource:
+            settleDS:
+              driver: com.mysql.cj.jdbc.Driver
+              provider: hikaricp
+              URL: jdbc:mysql://localhost:3306/Delivery?useSSL=false&useUnicode=true&allowPublicKeyRetrieval=true
+              user: root
+              password: 1234
+              maxConnections: 5

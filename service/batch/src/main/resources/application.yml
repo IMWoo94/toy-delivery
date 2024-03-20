@@ -1,6 +1,7 @@
 spring:
   profiles:
     include:
-      - db
       - batch
+      - quartz
+      - db
 debug: false
